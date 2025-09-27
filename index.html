@@ -3,53 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple JSON Array Generator</title>
+    <title>Premium Dark Theme Multi-Product JSON Generator</title>
     <style>
-        /* Simple Dark Theme */
+        /* Base & Layout - Dark Theme */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             padding: 20px; 
-            background-color: #1a1a1a;
-            color: #f0f0f0;
+            background-color: #1a1a1a; /* Dark background */
+            color: #f0f0f0; /* Light text color */
             display: flex;
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
             margin: 0;
         }
-        
         .container { 
             width: 100%;
             max-width: 900px;
-            background: #2c2c2c;
+            background: #2c2c2c; /* Slightly lighter dark container */
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 15px; /* More rounded container */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
             margin-top: 20px;
         }
-        
         h2 {
-            color: #4CAF50;
+            color: #4CAF50; /* Green highlight for title */
             text-align: center;
             margin-bottom: 30px;
             font-weight: 700;
         }
-        
-        /* Existing JSON Input */
+        p {
+            color: #aaa;
+        }
+
+        /* Existing JSON Input Box */
         #existingJsonContainer {
             margin-bottom: 30px;
             padding: 20px;
-            border: 1px dashed #00bcd4;
+            border: 1px dashed #00bcd4; /* Cyan dashed border */
             border-radius: 10px;
             background-color: #383838;
         }
-        
         #existingJsonContainer h3 {
             color: #00bcd4;
             margin-top: 0;
             margin-bottom: 10px;
         }
-        
         #existingJson {
             width: 100%;
             min-height: 100px;
@@ -64,39 +63,37 @@
             resize: vertical;
             transition: border-color 0.3s;
         }
-        
         #existingJson:focus {
-            border-color: #4CAF50;
+            border-color: #4CAF50; /* Green focus */
             outline: none;
         }
         
-        /* Product Entry */
+        /* Product Entry Box */
         .product-entry {
             border: 1px solid #444;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 30px;
-            background-color: #383838;
+            background-color: #383838; /* Entry background */
             position: relative;
+            transition: box-shadow 0.3s;
         }
-        
         .product-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #00bcd4;
+            border-bottom: 2px solid #00bcd4; /* Cyan/Teal separator */
         }
-        
         .product-header h3 {
-            color: #00bcd4;
+            color: #00bcd4; /* Cyan/Teal highlight */
             margin: 0;
             font-size: 1.3rem;
             font-weight: 600;
         }
-        
-        /* Form Fields */
+
+        /* Form Fields Layout */
         .form-row {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -104,15 +101,13 @@
             margin-bottom: 15px;
             align-items: center;
         }
-        
         .form-row label {
             font-weight: 600;
-            color: #f0f0f0;
+            color: #f0f0f0; /* Light label text */
             text-align: right;
             padding-right: 15px;
         }
-        
-        .form-row input, .form-row textarea { 
+        .form-row input[type="text"], .form-row textarea { 
             width: 100%; 
             padding: 12px; 
             border: 1px solid #555; 
@@ -121,11 +116,11 @@
             color: #f0f0f0;
             box-sizing: border-box;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        
-        .form-row input:focus, .form-row textarea:focus {
+        .form-row input[type="text"]:focus, .form-row textarea:focus {
             border-color: #00bcd4;
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.6);
             outline: none;
         }
         
@@ -142,11 +137,11 @@
             display: block;
             width: 100%;
             margin-top: 20px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.1s;
         }
-        
         .add-product-btn:hover { 
             background-color: #43a047; 
+            transform: translateY(-1px);
         }
 
         .remove-product-btn {
@@ -159,39 +154,11 @@
             font-size: 0.9rem;
             transition: background-color 0.3s;
         }
-        
         .remove-product-btn:hover {
             background-color: #c62828;
         }
 
-        /* Output Section */
-        #jsonOutputContainer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-        }
-        
-        #jsonOutputContainer h3 {
-            color: #f0f0f0;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        
-        #jsonOutput { 
-            background-color: #111;
-            color: #90ee90;
-            padding: 20px; 
-            border-radius: 8px; 
-            white-space: pre-wrap; 
-            word-wrap: break-word; 
-            min-height: 150px; 
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 0.95rem;
-            overflow-x: auto;
-            border: 1px solid #00bcd4;
-        }
-
+        /* Copy Button Style */
         #copyJsonBtn {
             background-color: #007bff;
             color: white; 
@@ -204,270 +171,345 @@
             display: block;
             width: 100%;
             margin-top: 15px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.1s;
         }
-        
         #copyJsonBtn:hover {
             background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        
+        /* Output Section */
+        #jsonOutputContainer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #555;
+        }
+        #jsonOutputContainer h3 {
+            color: #f0f0f0;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        #jsonOutput { 
+            background-color: #111;
+            color: #90ee90;
+            padding: 20px; 
+            border-radius: 8px; 
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+            min-height: 150px; 
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            border: 1px solid #00bcd4;
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.4);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>✨ Simple JSON Array Generator</h2>
-    <p style="text-align: center; color: #aaa;">Add new products to existing JSON data with automatic field detection</p>
+    <h2>✨ Premium Dark Theme JSON Array Generator</h2>
+    <p style="text-align: center; color: #aaa;">Use this tool to merge new product entries with existing data. **New fields are determined by the existing JSON structure.**</p>
     
     <div id="existingJsonContainer">
-        <h3>1. Paste Existing JSON Array Here</h3>
-        <textarea id="existingJson" placeholder='[ { "id": 101, "name": "Product Name", "price": 999, "shopping_link": "https://amazon.in/dp/xyz" }, ... ]' oninput="analyzeAndGenerate()"></textarea>
+        <h3>1. Paste Existing JSON Array $\text{[ ]}$ Here</h3>
+        <textarea id="existingJson" placeholder="[ { 'id': 101, 'name': 'Old Product', 'color': 'red' }, ... ]" oninput="determineFieldsAndGenerate()"></textarea>
     </div>
     
     <h3>2. Add New Products</h3>
-    <p style="color: #4CAF50;">⚡ Fields are automatically detected from your JSON structure</p>
-    <div id="productsContainer"></div>
+    <p style="color: #4CAF50;">⚠️ Note: The fields below are dynamically determined by the keys found in the JSON you pasted above.</p>
+    <div id="productsContainer">
+    </div>
     
     <button class="add-product-btn" onclick="addNewProduct()">+ Add New Product</button>
 
     <div id="jsonOutputContainer">
-        <h3>3. Generated JSON Array Output</h3>
-        <pre id="jsonOutput">The merged JSON Array will appear here...</pre>
-        <button id="copyJsonBtn" onclick="copyJson()">📋 Copy JSON to Clipboard</button>
+        <h3>3. Merged and Generated JSON Array $\text{[ ]}$ Output</h3>
+        <pre id="jsonOutput">The merged JSON Array will appear here (Existing + New)...</pre>
+        <button id="copyJsonBtn" onclick="copyJson()">Copy JSON to Clipboard</button>
     </div>
 </div>
 
 <script>
     const productsContainer = document.getElementById('productsContainer');
     let productCount = 0; 
-    let existingProducts = [];
     
-    // Default fields with shopping link support
-    const defaultFields = [
-        { key: 'id', label: 'Product ID', type: 'number', placeholder: 'e.g. 101' },
-        { key: 'name', label: 'Product Name', type: 'text', placeholder: 'Enter product name' },
-        { key: 'price', label: 'Price', type: 'text', placeholder: 'e.g. ₹999' },
-        { key: 'shopping_link', label: 'Shopping Link', type: 'url', placeholder: 'https://amazon.in/dp/xyz' },
-        { key: 'category', label: 'Category', type: 'text', placeholder: 'e.g. electronics' },
-        { key: 'description', label: 'Description', type: 'textarea', placeholder: 'Product description' }
+    // Default fallback fields
+    const defaultProductFields = [
+        { key: 'id', label: 'ID (Unique Number)', default: 0, type: 'text', placeholder: 'e.g. 101' },
+        { key: 'name', label: 'Name', default: '', type: 'text', placeholder: 'Required: Product Name' },
+        { key: 'price', label: 'Price', default: '', type: 'text', placeholder: 'e.g. ₹999 or $10.00' },
+        { key: 'image_url', label: 'Image URL', default: '', type: 'text', placeholder: 'https://example.com/image.jpg' },
+        { key: 'description', label: 'Description', default: '', type: 'textarea', placeholder: 'Brief details about the product.' }
     ];
 
-    let currentFields = [...defaultFields];
+    let currentProductFields = [...defaultProductFields]; // Start with default fields
 
-    // Smart field detection for shopping links
-    function detectFieldType(key, value) {
-        const keyLower = key.toLowerCase();
-        
-        // Shopping/URL detection
-        const urlKeywords = ['url', 'link', 'shopping', 'amazon', 'flipkart', 'myntra', 'buy', 'purchase', 'image', 'photo'];
-        if (urlKeywords.some(keyword => keyLower.includes(keyword))) {
-            return 'url';
-        }
-        
-        // Other field types
-        if (keyLower.includes('id') || keyLower.includes('price') || keyLower.includes('count')) {
-            return 'number';
-        }
-        if (keyLower.includes('email')) {
-            return 'email';
-        }
-        if (keyLower.includes('description') || keyLower.includes('detail')) {
-            return 'textarea';
-        }
-        
-        // Value-based detection
-        if (typeof value === 'number') return 'number';
-        if (typeof value === 'string' && (value.includes('http') || value.includes('www.'))) return 'url';
-        if (typeof value === 'string' && value.length > 50) return 'textarea';
-        
-        return 'text';
-    }
-
+    /**
+     * Capitalizes the first letter of a string and replaces underscores with spaces.
+     */
     function capitalize(str) {
-        return str.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        if (!str) return '';
+        const cleanedStr = str.replace(/_/g, ' ');
+        return cleanedStr.charAt(0).toUpperCase() + cleanedStr.slice(1);
     }
 
-    function analyzeAndGenerate() {
-        const jsonText = document.getElementById('existingJson').value.trim();
-        
-        if (!jsonText) {
-            currentFields = [...defaultFields];
-            existingProducts = [];
-            generateJson();
-            return;
-        }
+    /**
+     * Determines the required fields for new products based on the existing JSON structure.
+     */
+    function determineFieldsFromExistingJson() {
+        const existingJsonText = document.getElementById('existingJson').value.trim();
+        let fields = [...defaultProductFields]; // Reset to default
 
-        try {
-            const parsed = JSON.parse(jsonText);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-                existingProducts = parsed.filter(item => typeof item === 'object' && item !== null);
+        if (existingJsonText) {
+            try {
+                const parsedJson = JSON.parse(existingJsonText);
                 
-                if (existingProducts.length > 0) {
-                    const firstProduct = existingProducts[0];
-                    currentFields = Object.keys(firstProduct).map(key => ({
-                        key,
-                        label: capitalize(key),
-                        type: detectFieldType(key, firstProduct[key]),
-                        placeholder: getSmartPlaceholder(key, firstProduct[key])
-                    }));
+                if (Array.isArray(parsedJson) && parsedJson.length > 0) {
+                    // Find the first valid object in the array
+                    const firstProduct = parsedJson.find(item => typeof item === 'object' && item !== null && !Array.isArray(item));
+                    
+                    if (firstProduct) {
+                        const keys = Object.keys(firstProduct);
+                        
+                        fields = keys.map(key => {
+                            // Determine type based on existing data (simple check)
+                            const sampleValue = firstProduct[key];
+                            let type = 'text';
+                            if (typeof sampleValue === 'string' && sampleValue.length > 50) {
+                                type = 'textarea';
+                            }
+                            
+                            // Create a field object based on the key
+                            return { 
+                                key: key, 
+                                label: capitalize(key), // Use capitalized key as label
+                                default: '', 
+                                type: type,
+                                placeholder: `Enter value for ${capitalize(key)}`
+                            };
+                        });
+                    }
                 }
+            } catch (e) {
+                // Ignore parsing error here, it will be handled in generateJson
             }
-        } catch (e) {
-            currentFields = [...defaultFields];
-            existingProducts = [];
         }
         
+        currentProductFields = fields;
+    }
+    
+    /**
+     * Wrapper to determine fields and then generate the final JSON.
+     */
+    function determineFieldsAndGenerate() {
+        determineFieldsFromExistingJson();
         generateJson();
     }
 
-    function getSmartPlaceholder(key, value) {
-        const keyLower = key.toLowerCase();
-        
-        if (keyLower.includes('shopping') || keyLower.includes('amazon')) {
-            return 'https://amazon.in/dp/B08N5WRWNW';
-        }
-        if (keyLower.includes('flipkart')) {
-            return 'https://flipkart.com/product/p/itmxxx';
-        }
-        if (keyLower.includes('myntra')) {
-            return 'https://myntra.com/product/12345';
-        }
-        if (keyLower.includes('url') || keyLower.includes('link')) {
-            return 'https://example.com/product';
-        }
-        if (keyLower.includes('image') || keyLower.includes('photo')) {
-            return 'https://images.example.com/product.jpg';
-        }
-        if (keyLower.includes('price')) {
-            return 'e.g. ₹999';
-        }
-        if (keyLower.includes('id')) {
-            return 'e.g. 101';
-        }
-        
-        return `Enter ${capitalize(key).toLowerCase()}`;
-    }
 
+    /**
+     * Creates and adds a new product entry block.
+     */
     function addNewProduct() {
+        // Ensure fields are determined before generating the form
+        determineFieldsFromExistingJson(); 
+        
         productCount++;
+        const currentId = productCount;
+
         const productDiv = document.createElement('div');
         productDiv.className = 'product-entry';
+        productDiv.setAttribute('data-id', currentId);
 
-        const header = document.createElement('div');
-        header.className = 'product-header';
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'product-header';
         
-        const title = document.createElement('h3');
-        title.textContent = `New Product ${productCount}`;
-        title.id = `title-${productCount}`;
+        // Initial title shows (Enter Name). Tries to find 'name' or 'id' for title.
+        const nameField = currentProductFields.find(f => f.key.toLowerCase().includes('name'));
+        const titleKey = nameField ? nameField.key : currentProductFields[0].key; // Use 'name' or first key
         
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'remove-product-btn';
-        removeBtn.textContent = 'Remove';
-        removeBtn.onclick = () => {
+        const titleH3 = document.createElement('h3');
+        titleH3.textContent = `Product ${currentId}: (Enter ${capitalize(titleKey)})`; 
+        titleH3.id = `product-title-${currentId}`;
+        headerDiv.appendChild(titleH3);
+
+        const removeButton = document.createElement('button');
+        removeButton.className = 'remove-product-btn';
+        removeButton.textContent = 'Remove Product';
+        removeButton.onclick = function() {
             productDiv.remove();
-            generateJson();
+            generateJson(); 
         };
-        
-        header.appendChild(title);
-        header.appendChild(removeBtn);
-        productDiv.appendChild(header);
+        headerDiv.appendChild(removeButton);
+        productDiv.appendChild(headerDiv);
 
-        // Add form fields
-        currentFields.forEach(field => {
+        // Add all required form fields based on currentProductFields
+        currentProductFields.forEach(field => {
             const row = document.createElement('div');
             row.className = 'form-row';
 
             const label = document.createElement('label');
             label.textContent = field.label + ':';
+            label.htmlFor = `${field.key}-${currentId}`;
             row.appendChild(label);
 
-            let input;
-            if (field.type === 'textarea') {
-                input = document.createElement('textarea');
-                input.rows = 2;
-            } else {
-                input = document.createElement('input');
-                input.type = field.type === 'url' ? 'url' : 
-                           field.type === 'number' ? 'number' : 'text';
-            }
-
-            input.name = field.key;
-            input.placeholder = field.placeholder;
+            let inputElement;
             
-            if (field.key.toLowerCase().includes('id')) {
-                input.value = productCount;
+            if (field.type === 'textarea') {
+                inputElement = document.createElement('textarea');
+                inputElement.rows = 2;
+            } else {
+                inputElement = document.createElement('input');
+                inputElement.type = field.type;
             }
 
-            input.addEventListener('input', () => {
-                if (field.key.toLowerCase().includes('name') && input.value) {
-                    title.textContent = `Product: ${input.value}`;
-                }
-                generateJson();
-            });
+            inputElement.id = `${field.key}-${currentId}`;
+            inputElement.name = field.key;
+            
+            // Set default placeholder/value
+            inputElement.value = (field.key.toLowerCase().includes('id') && productCount) ? productCount : field.default; 
+            inputElement.placeholder = field.placeholder || `Enter ${field.label}`;
+            
+            inputElement.addEventListener('input', generateJson);
+            
+            // Dynamic Title Update Listener
+            if (field.key === titleKey) {
+                 inputElement.addEventListener('input', (e) => {
+                    // Update the product title dynamically
+                    titleH3.textContent = `Product ${currentId}: ${e.target.value || `(Enter ${capitalize(titleKey)})`}`;
+                 });
+            }
 
-            row.appendChild(input);
+            row.appendChild(inputElement);
             productDiv.appendChild(row);
         });
 
         productsContainer.appendChild(productDiv);
-        generateJson();
+        generateJson(); 
         
-        // Focus first input
+        productDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Try to focus on the first input (which is usually ID or Name)
         const firstInput = productDiv.querySelector('input, textarea');
-        if (firstInput) firstInput.focus();
+        if (firstInput) {
+             firstInput.focus();
+        }
     }
 
+    /**
+     * Generates the final JSON Array by MERGING existing and new product entries.
+     */
     function generateJson() {
-        const newProducts = [];
-        const entries = productsContainer.querySelectorAll('.product-entry');
+        // 1. Get Existing JSON Data
+        let existingProducts = [];
+        const existingJsonText = document.getElementById('existingJson').value.trim();
         
-        entries.forEach(entry => {
-            const product = {};
-            let hasData = false;
+        if (existingJsonText) {
+            try {
+                const parsedJson = JSON.parse(existingJsonText);
+                
+                if (Array.isArray(parsedJson)) {
+                    // Filter for only valid objects
+                    existingProducts = parsedJson.filter(item => typeof item === 'object' && item !== null && !Array.isArray(item));
+                } else {
+                    document.getElementById('jsonOutput').textContent = "ERROR: Existing JSON is valid but is not a JSON Array ([ ]). Please paste an array.";
+                    return; 
+                }
+
+            } catch (e) {
+                document.getElementById('jsonOutput').textContent = "ERROR: Existing JSON is invalid. Please check syntax (missing brackets, commas, quotes, etc.).";
+                return; 
+            }
+        }
+
+
+        // 2. Get Newly Added Products Data
+        const newProductArray = [];
+        const productEntries = productsContainer.querySelectorAll('.product-entry');
+        
+        productEntries.forEach(entry => {
+            const productObject = {};
+            let isFilled = false;
             
-            currentFields.forEach(field => {
-                const input = entry.querySelector(`[name="${field.key}"]`);
-                if (input && input.value.trim()) {
-                    hasData = true;
-                    let value = input.value.trim();
+            // Use currentProductFields structure to extract data consistently
+            currentProductFields.forEach(field => {
+                const inputElement = entry.querySelector(`[name="${field.key}"]`);
+                if (inputElement) {
+                    let value = inputElement.value.trim();
                     
-                    if (field.type === 'number' && !isNaN(value)) {
-                        product[field.key] = Number(value);
-                    } else {
-                        product[field.key] = value;
+                    if (value !== "") {
+                        isFilled = true;
+                    }
+
+                    // Attempt to convert to number if the key looks like an ID or Price and the value is numeric
+                    const isNumericField = field.key.toLowerCase().includes('id') || field.key.toLowerCase().includes('price');
+                    
+                    if (isNumericField && !isNaN(value) && value !== '') {
+                        // Simple number check, allowing floating point for price
+                        productObject[field.key] = Number(value); 
+                    } else if (value !== "") {
+                        productObject[field.key] = value;
                     }
                 }
             });
             
-            if (hasData) {
-                newProducts.push(product);
+            // Only include the product object if at least one field was filled
+            if (isFilled && Object.keys(productObject).length > 0) {
+                newProductArray.push(productObject);
             }
         });
         
-        const finalArray = [...existingProducts, ...newProducts];
-        document.getElementById('jsonOutput').textContent = JSON.stringify(finalArray, null, 2);
-    }
+        // 3. MERGE the two arrays: Old + New
+        const finalProductArray = [...existingProducts, ...newProductArray];
 
-    function copyJson() {
-        const jsonText = document.getElementById('jsonOutput').textContent;
-        const btn = document.getElementById('copyJsonBtn');
+
+        // 4. Display the Output
+        const jsonString = JSON.stringify(finalProductArray, null, 3);
         
-        navigator.clipboard.writeText(jsonText).then(() => {
-            btn.textContent = '✅ Copied!';
-            setTimeout(() => {
-                btn.textContent = '📋 Copy JSON to Clipboard';
-            }, 2000);
-        }).catch(() => {
-            btn.textContent = '❌ Failed';
-            setTimeout(() => {
-                btn.textContent = '📋 Copy JSON to Clipboard';
-            }, 2000);
-        });
+        document.getElementById('jsonOutput').textContent = jsonString || "[]";
     }
 
-    // Initialize
+    /**
+     * Copies the generated JSON string to the clipboard.
+     */
+    function copyJson() {
+        const jsonOutput = document.getElementById('jsonOutput');
+        const jsonText = jsonOutput.textContent;
+        const copyBtn = document.getElementById('copyJsonBtn');
+        
+        if (jsonText.startsWith("ERROR:")) {
+             copyBtn.textContent = '⚠️ Cannot Copy Error Text';
+             setTimeout(() => { copyBtn.textContent = 'Copy JSON to Clipboard'; }, 2000);
+             return;
+        }
+
+        navigator.clipboard.writeText(jsonText)
+            .then(() => {
+                copyBtn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy JSON to Clipboard';
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Could not copy text: ', err);
+                copyBtn.textContent = '❌ Failed to Copy';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy JSON to Clipboard';
+                }, 2000);
+            });
+    }
+
+    // Initialize the page with the first product on load
     window.onload = function() {
+        // Determine fields based on any initial paste (though usually empty on load)
+        determineFieldsFromExistingJson(); 
+        
+        // Add the first product using the determined (default) fields
         addNewProduct();
     };
+
 </script>
 
 </body>
